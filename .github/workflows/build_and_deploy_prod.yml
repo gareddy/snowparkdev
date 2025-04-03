@@ -3,7 +3,7 @@ name: Deploy Snowpark Apps
 on:
   push:
     branches:
-      - qa
+      - prod
 
   workflow_dispatch:
 
@@ -16,7 +16,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: gareddy/snowparkdev
-          ref: qa
+          ref: prod
 
       - name: Setup Python 3.9
         uses: actions/setup-python@v4
@@ -29,10 +29,10 @@ jobs:
       - name: Deploy Snowpark apps
         working-directory: first_snowpark_project
         env:
-          SNOWFLAKE_ACCOUNT: ${{ secrets.SNOWFLAKE_ACCOUNT_QA }}
-          SNOWFLAKE_USER: ${{ secrets.SNOWFLAKE_USER_QA }}
-          SNOWFLAKE_PASSWORD: ${{ secrets.SNOWFLAKE_PASSWORD_QA }}
-          SNOWFLAKE_DATABASE: ${{ secrets.SNOWFLAKE_DATABASE_QA }}
-          SNOWFLAKE_ROLE: ${{ secrets.SNOWFLAKE_ROLE_QA }}
-          SNOWFLAKE_WAREHOUSE: ${{ secrets.SNOWFLAKE_WAREHOUSE_QA }}
+          SNOWFLAKE_ACCOUNT: ${{ secrets.SNOWFLAKE_ACCOUNT_PROD }}
+          SNOWFLAKE_USER: ${{ secrets.SNOWFLAKE_USER_PROD }}
+          SNOWFLAKE_PASSWORD: ${{ secrets.SNOWFLAKE_PASSWORD_PROD }}
+          SNOWFLAKE_DATABASE: ${{ secrets.SNOWFLAKE_DATABASE_PROD }}
+          SNOWFLAKE_ROLE: ${{ secrets.SNOWFLAKE_ROLE_PROD }}
+          SNOWFLAKE_WAREHOUSE: ${{ secrets.SNOWFLAKE_WAREHOUSE_PROD }}
         run: python deploy_snowpark_app.py $GITHUB_WORKSPACE/first_snowpark_project
