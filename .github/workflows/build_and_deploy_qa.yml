@@ -1,0 +1,38 @@
+name: Deploy Snowpark Apps
+
+on:
+  push:
+    branches:
+      - qa
+
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          repository: gareddy/snowparkdev
+          ref: qa
+
+      - name: Setup Python 3.9
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      - name: Install Python packages
+        run: pip install -r requirements.txt
+
+      - name: Deploy Snowpark apps
+        working-directory: first_snowpark_project
+        env:
+          SNOWFLAKE_ACCOUNT: ${{ secrets.SNOWFLAKE_ACCOUNT_QA }}
+          SNOWFLAKE_USER: ${{ secrets.SNOWFLAKE_USER_QA }}
+          SNOWFLAKE_PASSWORD: ${{ secrets.SNOWFLAKE_PASSWORD_QA }}
+          SNOWFLAKE_DATABASE: ${{ secrets.SNOWFLAKE_DATABASE_QA }}
+          SNOWFLAKE_ROLE: ${{ secrets.SNOWFLAKE_ROLE_QA }}
+          SNOWFLAKE_WAREHOUSE: ${{ secrets.SNOWFLAKE_WAREHOUSE_QA }}
+        run: python deploy_snowpark_app.py $GITHUB_WORKSPACE/first_snowpark_project
