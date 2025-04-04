@@ -1,0 +1,6 @@
+default_connection_name = "myconnection"
+
+[connections]
+[connections.myconnection]
+user = ""
+password = ""
