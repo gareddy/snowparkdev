@@ -35,6 +35,7 @@ jobs:
           SNOWFLAKE_DATABASE: ${{ secrets.SNOWFLAKE_DATABASE_QA }}
           SNOWFLAKE_ROLE: ${{ secrets.SNOWFLAKE_ROLE_QA }}
           SNOWFLAKE_WAREHOUSE: ${{ secrets.SNOWFLAKE_WAREHOUSE_QA }}
+          SNOWFLAKE_SCHEMA: ${{ secrets.SNOWFLAKE_SCHEMA_QA }}
         run: python deploy_snowpark_app.py $GITHUB_WORKSPACE/first_snowpark_project
       
       - name: Deploy Snowpark tasks
@@ -45,5 +46,6 @@ jobs:
           SNOWFLAKE_DATABASE: ${{ secrets.SNOWFLAKE_DATABASE_QA }}
           SNOWFLAKE_ROLE: ${{ secrets.SNOWFLAKE_ROLE_QA }}
           SNOWFLAKE_WAREHOUSE: ${{ secrets.SNOWFLAKE_WAREHOUSE_QA }}
+          SNOWFLAKE_SCHEMA: ${{ secrets.SNOWFLAKE_SCHEMA_QA }}
         working-directory: first_snowpark_project/app
         run: python create_task.py
